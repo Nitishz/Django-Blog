@@ -1,0 +1,21 @@
+{% include 'base.html' %}
+
+{% block content %}
+<h2 class="text-center">Edit Comment</h2>
+<div class="container">
+    <div class="my-2">
+        {% if user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control" type="text" name="content" rows="4" cols="50">{{ comment.content }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary my-2">Save Changes</button>
+            <span><a type="button" class="btn btn-danger" href="{{ comment.post.get_absolute_url }}">Cancel</a></span>
+        </form>
+        {% else %}
+        <p>Login to Update Comment</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

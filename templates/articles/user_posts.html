@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load humanize %}
+
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+</style>
+
+{% if articles|length < 1 %}
+<h2 class="text-center">Nothing To Display.</h2>
+{% else %}
+<h1 class="mb-3 text-center">Articles by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for article in articles %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ article.title }}</h2>
+                    <p class="card-text text-muted h6">By {{ article.author }} | Published: {{ article.published_at | naturaltime }}</p> </p>
+                    <p class="card-text">{{article.description|truncatechars:200|safe }}</p>
+                    <a href="{{ article.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'snippets/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{% endif %}
+
+{% if page_obj.has_other_pages %}
+<ul class="pagination d-flex justify-content-center my-4">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="disabled"><a class="page-link disabled"><span>&laquo;</span></a></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+    <li class="page-item active"><a class="page-link" href="?page={{ i}}">{{ i }} <span class="sr-only"></span></a></li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="disabled"><a class="page-link disabled"><span>&raquo;</span></a></li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endblock %}

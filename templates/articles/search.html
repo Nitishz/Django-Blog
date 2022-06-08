@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load humanize %}
+
+{% if articles|length < 1 %}
+    <h2 class="text-center">No search results</h2><br>
+    <p class="mx-4">Your search query - <b>{{ q|slice:78 }}</b> - did not match any documents.</p>
+    <br>
+    <div class="mx-4">
+        <p>
+            Suggestions: 
+            <ul>
+                <li>Make sure that all words are spelled correctly.</li>
+                <li>Try different keywords.</li>
+                <li>Try more general keywords.</li>
+                <li>Try fewer keywords.</li>
+            </ul>
+        </p>
+    </div>
+{% else %}
+
+<h2 class="text-center">Search Results ({{ articles|length }})</h2>
+
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for article in articles %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ article.title }}</h2>
+                    <p class="card-text text-muted h6">By <a href="{% url 'user-posts' article.author.username %}">{{ article.author }}</a> | {{ article.published_at | naturaltime }}</p> </p>
+                    <p class="card-text">{{article.description|truncatechars:200|safe }}</p>
+                    <a href="{{ article.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'snippets/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{% endif %}
+
+<!--Pagination-->
+{% include 'snippets/pagination.html' with articles=articles %}
+
+{% endblock %}

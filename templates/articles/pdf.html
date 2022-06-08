@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <div class="d-flex justify-content-center mb-2">
+        <h1 class="card-title">{{ article.title }}</h1>
+      </div>
+      <div class="d-flex justify-content-around mb-3">
+        <small class="text-muted mx-1">{{ article.published_at }}</small>
+        <small class="text-muted mx-1">-{{ article.author }}</small>
+      </div>
+      <div class="d-flex justify-content-center">
+          <img src="{{ article.image.path }}" class="img-thumbnail" style="width: 608px; height: 400px;" alt="...">
+      </div>
+      <div class="text-center my-4">
+          <p>{{ article.description | safe }}</p>
+      </div>
+</body>
+</html>
