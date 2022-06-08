@@ -21,13 +21,13 @@
 ![image](https://user-images.githubusercontent.com/66010219/172632737-36909ced-6d1f-47a3-af8b-13d5f218bfdc.png)
 
 # Features
-User Registration
-Email Verification
-User Login & Logout
-User Profile, Edit Profile
-Create, Update, Edit & Delete Posts
-Comments
-Search
-User Change Password
-Password Reset
-Pagination
+* User Registration
+* Email Verification
+* User Login & Logout
+* User Profile, Edit Profile
+* Create, Update, Edit & Delete Posts
+* Comments
+* Search
+* User Change Password
+* Password Reset
+* Pagination
